@@ -16,3 +16,9 @@ interface Window {
         getStaticData: () => Promise<StaticData>;
     }
 }
+
+type EventPayloadMapping = {
+    statistics: Statistics,
+    getStaticData: StaticData,
+}
+
