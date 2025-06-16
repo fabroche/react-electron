@@ -3,11 +3,11 @@ import electron from "electron";
 const {contextBridge} = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    subscribeStatistics: (callback) => {
+    subscribeStatistics: (callback) =>
         ipcOn('statistics', (statsData) => {
             callback(statsData)
-        });
-    },
+        }),
+
     getStaticData: () => ipcInvoke('getStaticData')
 }satisfies Window['electronAPI']);
 
@@ -22,9 +22,9 @@ function ipcOn<Key extends keyof EventPayloadMapping>(
     callback: (payload: EventPayloadMapping[Key]) => void
 ) {
 
-    electron.ipcRenderer.on(
-        key,
-        (_, payload) => callback(payload)
-    );
+    const cb = (_: Electron.IpcRendererEvent, payload: any) => callback(payload);
 
+    electron.ipcRenderer.on(key,cb);
+
+    return () => electron.ipcRenderer.off(key,cb);
 }

@@ -10,9 +10,11 @@ type StaticData = {
     totalMemoryGB: number
 }
 
+type UnsuscribeFunction = () => void;
+
 interface Window {
     electronAPI: {
-        subscribeStatistics: (callback: (statistics: Statistics) => void) => void;
+        subscribeStatistics: (callback: (statistics: Statistics) => void) => UnsuscribeFunction;
         getStaticData: () => Promise<StaticData>;
     }
 }
