@@ -1,17 +1,31 @@
-import {useEffect, useState} from 'react'
+import {useMemo, useState} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import {useStatistics} from "./hooks/useStatistics.ts";
+import {Chart} from "./components/Chart.tsx";
 
 function App() {
     const [count, setCount] = useState(0)
 
-    useEffect(() => {
-        window.electronAPI.subscribeStatistics(stats => console.log(stats))
-    }, []);
+    const statistics = useStatistics(10);
+
+    const cpuUsages = useMemo(
+        () => statistics.map(stat => stat.cpuUsage),
+        [statistics]
+    )
+
+
+
+    console.log(statistics)
 
     return (
         <>
+            <h3>CPU USAGE:</h3>
+            <div style={{height: 120}}>
+                <Chart data={cpuUsages} maxDataPoints={10}/>
+            </div>
+
             <div>
                 <a href="https://vite.dev" target="_blank">
                     <img src={viteLogo} className="logo" alt="Vite logo"/>
