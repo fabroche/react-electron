@@ -10,6 +10,11 @@ function getPreloadPath() {
     );
 }
 
+function getUIPath() {
+    return path.join(app.getAppPath(), '/dist-react/index.html');
+}
+
 export {
-    getPreloadPath
+    getPreloadPath,
+    getUIPath
 }
