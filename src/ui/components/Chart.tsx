@@ -1,9 +1,11 @@
-import {BaseChart} from "./BaseChart.tsx";
+import {BaseChart, type BaseChartProps} from "./BaseChart.tsx";
 import {useMemo} from "react";
 
 type ChartProps = {
     data: number[];
     maxDataPoints: number;
+    fill: BaseChartProps["fill"];
+    stroke: BaseChartProps["stroke"];
 }
 
 function Chart(props: ChartProps) {
@@ -18,7 +20,7 @@ function Chart(props: ChartProps) {
         [props.data, props.maxDataPoints]
     );
 
-    return <BaseChart data={preparedData} fill={"#0077ff"} stroke={"#0077ff"}/>
+    return <BaseChart data={preparedData} fill={props.fill} stroke={props.stroke}/>
 }
 
 export {

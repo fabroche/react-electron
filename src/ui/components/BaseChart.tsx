@@ -7,7 +7,7 @@ import {
     YAxis,
 } from 'recharts';
 
-type BaseChartProps = {
+export type BaseChartProps = {
     data: { value: number | undefined }[];
     fill: string | "#0077ff";
     stroke: string | "#0077ff";

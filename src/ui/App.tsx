@@ -15,17 +15,18 @@ function App() {
         [statistics]
     )
 
+    const ramUsages = useMemo(
+        () => statistics.map(stat => stat.ramUsage),
+        [statistics]
+    )
 
-
-    console.log(statistics)
+    const storageUsages = useMemo(
+        () => statistics.map(stat => stat.storageUsage),
+        [statistics]
+    )
 
     return (
         <>
-            <h3>CPU USAGE:</h3>
-            <div style={{height: 120}}>
-                <Chart data={cpuUsages} maxDataPoints={10}/>
-            </div>
-
             <div>
                 <a href="https://vite.dev" target="_blank">
                     <img src={viteLogo} className="logo" alt="Vite logo"/>
@@ -35,6 +36,35 @@ function App() {
                 </a>
             </div>
             <h1>Vite + React + Electron</h1>
+            <h3>CPU USAGE:</h3>
+            <div style={{height: 120}}>
+                <Chart
+                    data={cpuUsages}
+                    maxDataPoints={10}
+                    fill={"#0077ff"}
+                    stroke={"#0077ff"}
+                />
+            </div>
+
+            <h3>RAM USAGE:</h3>
+            <div style={{height: 120}}>
+                <Chart
+                    data={ramUsages}
+                    maxDataPoints={10}
+                    fill={"#104826"}
+                    stroke={"#104826"}
+                />
+            </div>
+
+            <h3>STORAGE USAGE:</h3>
+            <div style={{height: 120}}>
+                <Chart
+                    data={storageUsages}
+                    maxDataPoints={10}
+                    fill={"#881e1e"}
+                    stroke={"#881e1e"}
+                />
+            </div>
             <div className="card">
                 <button onClick={() => setCount((count) => count + 1)}>
                     count is {count}
